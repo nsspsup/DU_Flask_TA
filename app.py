@@ -9,13 +9,16 @@ trips = [{"id": 1, "destination": "Paris, France", "price": 350},
          {"id": 4, "destination": "Bogota, Columbia", "price": 830},
          {"id": 5, "destination": "Fucking, Austria", "price": 30},
          {"id": 6, "destination": "Valletta, Malta", "price": 380},]
+
 @app.route('/')
-def hello_world():  # put application's code here
-    return 'Hello World!'
+def welcome():  #
+    return ('Welcome to Travel Agency!')
+
 
 @app.route('/trips', methods=['GET'])
 def get_trips():
     return jsonify(trips)
+
 
 @app.route('/trips/search')
 def search():
@@ -35,10 +38,6 @@ def search():
     return jsonify(filt_trips)
 
 
-    return f"Searching for {query} with filter {filter}"
-    #result = [trip for trip in trips if query in trip['destination'].lower()]
-
-    #return jsonify(result)
 
 @app.route('/book', methods=['POST'])
 def book():
@@ -53,7 +52,7 @@ def book():
 
 
 
-#table a html som generoval z gpt, lebo sa mi ti chcelo este trochu vypimpovat
+#table a html som generoval z gpt, lebo sa mi to chcelo este trochu vypimpovat
 @app.route('/table')
 def trips_page():
     # Extract unique destinations for the dropdown
