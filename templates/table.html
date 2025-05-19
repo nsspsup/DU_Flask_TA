@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trips</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { width: 80%; margin: 0 auto; padding: 20px; }
+        .header { display: flex; align-items: center; gap: 20px; margin-bottom: 30px; }
+        .header img { width: 100px; }
+        .filters { display: flex; gap: 10px; margin-bottom: 20px; }
+        .table-container { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 10px; border-bottom: 1px solid #ddd; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <img src="/static/logo.png" alt="Travel Agency Logo">
+        <h1>Available Trips</h1>
+    </div>
+
+    <form method="get" class="filters">
+        <select name="destination">
+            <option value="">Select Destination</option>
+            {% for destination in destinations %}
+                <option value="{{ destination }}" {% if request.args.get('destination') == destination %}selected{% endif %}>{{ destination }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="price">
+            <option value="">Select Price Range</option>
+            <option value="100" {% if request.args.get('price') == '100' %}selected{% endif %}>Up to 100</option>
+            <option value="200" {% if request.args.get('price') == '200' %}selected{% endif %}>Up to 200</option>
+            <option value="300" {% if request.args.get('price') == '300' %}selected{% endif %}>Up to 300</option>
+            <option value="400" {% if request.args.get('price') == '400' %}selected{% endif %}>Up to 400</option>
+            <option value="500" {% if request.args.get('price') == '500' %}selected{% endif %}>Up to 500</option>
+        </select>
+
+        <button type="submit">Filter</button>
+    </form>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Destination</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for trip in trips %}
+                    <tr>
+                        <td>{{ trip.id }}</td>
+                        <td>{{ trip.destination }}</td>
+                        <td>${{ trip.price }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
